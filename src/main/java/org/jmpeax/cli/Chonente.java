@@ -17,10 +17,19 @@
  */
 package org.jmpeax.cli;
 
+
+import org.jline.utils.AttributedString;
+import org.jline.utils.AttributedStyle;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.shell.jline.PromptProvider;
+
 /**
  * Class entry point.
  */
 //CHECKSTYLE:OFF
+@SpringBootApplication
 public class Chonente {
 //CHECKSTYLE:ON
     /**
@@ -35,6 +44,16 @@ public class Chonente {
      * @param args Args to use for startup.
      */
     public static void main(final String[] args) {
+        SpringApplication.run(Chonente.class, args);
+    }
 
+
+    /**
+     * Make.
+     * @return prompt.
+     */
+    @Bean
+    public PromptProvider myPromptProvider() {
+        return () -> new AttributedString("chonete>", AttributedStyle.DEFAULT.foreground(AttributedStyle.YELLOW));
     }
 }
