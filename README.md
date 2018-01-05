@@ -15,7 +15,7 @@ One Paragraph of project description goes here
 
 ## Authors
 
-* **Carlos Ortiz** - *Initial work* - [PurpleBooth](https://github.com/cortiz)
+* **Carlos Ortiz** - *Initial work* - [cortiz](https://github.com/cortiz)
 
 See also the list of [contributors](https://github.com/cortiz/chonete/contributors) who participated in this project.
 
