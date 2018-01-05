@@ -17,9 +17,6 @@
  */
 package org.jmpeax.cli;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 /**
  * Class entry point.
  */
