@@ -24,6 +24,7 @@ buildscript {
         classpath 'org.ajoberstar:grgit:1.1.0'
         classpath "gradle.plugin.nl.javadude.gradle.plugins:license-gradle-plugin:0.14.0"
         classpath "org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE"
+        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
     }
 }
 
@@ -37,7 +38,7 @@ apply plugin: 'jdepend'
 apply plugin: 'osgi'
 apply plugin: "com.github.hierynomus.license"
 apply plugin: 'org.springframework.boot'
-
+apply plugin: 'org.asciidoctor.convert'
 
 ext {
     // Open the Git repository in the current directory.

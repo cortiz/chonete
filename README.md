@@ -1,13 +1,13 @@
-# Simple HTTP
+# Chonete MultiDatabase Client
 
-One Paragraph of project description goes here
+One database client to rule them all.
 
 [![codebeat badge](https://codebeat.co/badges/2ce5dc58-97dc-4fa3-9616-320e1a72bb54)](https://codebeat.co/projects/github-com-cortiz-chonete-develop)
 [![Build Status](https://travis-ci.org/cortiz/chonete.svg?branch=develop)](https://travis-ci.org/cortiz/chonete)
 [![codecov](https://codecov.io/gh/cortiz/chonete/branch/develop/graph/badge.svg)](https://codecov.io/gh/cortiz/chonete)
 
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)]([![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html))
 ## Getting Started
-
 
 ### Prerequisites
 
