@@ -18,12 +18,16 @@
 package org.jmpeax.cli;
 
 
-import org.jline.utils.AttributedString;
-import org.jline.utils.AttributedStyle;
+import org.jmpeax.cli.api.providers.DataSource;
+import org.jmpeax.cli.ext.ChonetePromptProvider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.shell.jline.PromptProvider;
+import org.springframework.util.StringUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class entry point.
@@ -32,11 +36,13 @@ import org.springframework.shell.jline.PromptProvider;
 @SpringBootApplication
 public class Chonente {
 //CHECKSTYLE:ON
+
+
     /**
      * Default hidden Ctr.
      */
     public Chonente() {
-        //do not init chonente.
+        //do not init chonete.
     }
 
     /**
@@ -44,7 +50,9 @@ public class Chonente {
      * @param args Args to use for startup.
      */
     public static void main(final String[] args) {
-        SpringApplication.run(Chonente.class, args);
+        String[] disabledCommands = {"--spring.shell.command.script.enabled=false"};
+        String[] fullArgs = StringUtils.concatenateStringArrays(args, disabledCommands);
+        SpringApplication.run(Chonente.class, fullArgs);
     }
 
 
@@ -54,6 +62,19 @@ public class Chonente {
      */
     @Bean
     public PromptProvider myPromptProvider() {
-        return () -> new AttributedString("chonete>", AttributedStyle.DEFAULT.foreground(AttributedStyle.YELLOW));
+        return new ChonetePromptProvider();
     }
+
+    /**
+     * Connection Registry Map.
+     * All DB connection should be register here.
+     * @return a Empty Map.
+     */
+    @Bean(name = "connectionRegistry")
+    public Map<String, DataSource> connectionRegistry() {
+        return new HashMap<>();
+    }
+
+
+
 }
