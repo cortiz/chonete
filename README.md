@@ -6,7 +6,8 @@ One database client to rule them all.
 [![Build Status](https://travis-ci.org/cortiz/chonete.svg?branch=develop)](https://travis-ci.org/cortiz/chonete)
 [![codecov](https://codecov.io/gh/cortiz/chonete/branch/develop/graph/badge.svg)](https://codecov.io/gh/cortiz/chonete)
 
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)]([![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html))
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
 ## Getting Started
 
 ### Prerequisites
