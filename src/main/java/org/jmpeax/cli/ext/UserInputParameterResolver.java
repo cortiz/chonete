@@ -17,6 +17,8 @@
  */
 package org.jmpeax.cli.ext;
 
+import org.jline.reader.LineReader;
+import org.springframework.context.ApplicationContext;
 import org.springframework.core.MethodParameter;
 import org.springframework.shell.CompletionContext;
 import org.springframework.shell.CompletionProposal;
@@ -25,10 +27,6 @@ import org.springframework.shell.ParameterResolver;
 import org.springframework.shell.ValueResult;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
@@ -39,8 +37,19 @@ import java.util.stream.Stream;
 @Component
 public class UserInputParameterResolver implements ParameterResolver {
 
+    /**
+     * Application Context.
+      */
+    protected ApplicationContext appContext;
 
 
+    /**
+     * Creates User Input Parameter Resolver.
+     * @param applicationContext application appContext.
+     */
+    public UserInputParameterResolver(final ApplicationContext applicationContext) {
+        this.appContext = applicationContext;
+    }
 
     @Override
     public boolean supports(final MethodParameter parameter) {
@@ -50,12 +59,10 @@ public class UserInputParameterResolver implements ParameterResolver {
     @Override
     public ValueResult resolve(final MethodParameter methodParameter, final List<String> words) {
         String userInput;
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in, Charset.forName("UTF-8")));
-        try {
-            userInput = reader.readLine();
-        } catch (IOException ex) {
-            throw new IllegalArgumentException(ex.getMessage());
-        }
+        final LineReader lineReader  = appContext.getBean(LineReader.class);
+        final ChoneteUserInputPromptProvider userInputPromptProvider =
+                new ChoneteUserInputPromptProvider(methodParameter.getParameterName());
+        userInput = lineReader.readLine(userInputPromptProvider.getPrompt().toAnsi());
         return new ValueResult(methodParameter, userInput);
     }
 

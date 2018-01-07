@@ -87,8 +87,8 @@ public class ConnectCmd {
     @ShellMethod(group = "DB connections", value = "Connects to the given JDBC URL")
     @SuppressWarnings("unused")//Dynamic call by Spring-Shell
     public void connect(final String jdbcurl,
-                        @ShellOption(help = "DB username") @UserInput final String username,
-                        @ShellOption(help = "DB password") @UserInput final String password,
+                        @UserInput final String username,
+                        @UserInput final String password,
                         @ShellOption(defaultValue = "default",
                                 help = "Name of the connection") final String connectionName) {
         final String givenProvider = extractDBProvider(jdbcurl);
