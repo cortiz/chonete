@@ -17,6 +17,8 @@
  */
 package org.jmpeax.cli.api.providers;
 
+import org.springframework.shell.table.TableModel;
+
 /**
  * Defines all actions that a Datasource must do.
  */
@@ -28,7 +30,7 @@ public interface DataSource {
      * @param command command to execute.
      * @return Result of the executed command.
      */
-    String exec(String command);
+    TableModel exec(String command);
 
     /**
      * Close all connections of the Datasource.

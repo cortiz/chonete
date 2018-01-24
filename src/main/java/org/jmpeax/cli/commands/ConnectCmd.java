@@ -46,6 +46,11 @@ public class ConnectCmd {
      */
     private static final int DB_JDBC_POSITION = 1;
     /**
+     * Default connection name.
+     */
+    public static final String DEFAULT_CONN = "default";
+
+    /**
      * List of register providers.
      */
     private Set<DBProvider> registerProviderList;
@@ -87,10 +92,11 @@ public class ConnectCmd {
     @ShellMethod(group = "DB connections", value = "Connects to the given JDBC URL")
     @SuppressWarnings("unused")//Dynamic call by Spring-Shell
     public void connect(final String jdbcurl,
+                        @ShellOption(defaultValue = DEFAULT_CONN,
+                                help = "Name of the connection") final String connectionName,
                         @UserInput final String username,
-                        @UserInput final String password,
-                        @ShellOption(defaultValue = "default",
-                                help = "Name of the connection") final String connectionName) {
+                        @UserInput final String password
+                       ) {
         final String givenProvider = extractDBProvider(jdbcurl);
         DBProvider provider = registerProviderList.stream().filter(dbProvider ->
                 givenProvider.equals(dbProvider.getKey()))

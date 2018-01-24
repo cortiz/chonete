@@ -19,6 +19,14 @@ package org.jmpeax.cli.h2;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.jmpeax.cli.api.providers.DataSource;
+import org.springframework.shell.table.TableBuilder;
+import org.springframework.shell.table.TableModel;
+import org.springframework.shell.table.TableModelBuilder;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * H2 Data source implementation.
@@ -40,8 +48,38 @@ public class H2DBDataSource implements DataSource {
 
 
     @Override
-    public String exec(final String command) {
-        return "";
+    public TableModel exec(final String command) {
+        try (Connection conn = dataSource.getConnection()){
+            final Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY);
+            if (stm.execute(command)) {
+                final ResultSet rs = stm.getResultSet();
+                if (rs != null) {
+                    TableModelBuilder builder = new TableModelBuilder();
+                    builder.addRow();
+                    for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
+                        builder.addValue(rs.getMetaData().getColumnLabel(i + 1));
+                    }
+                    while (rs.next()){
+                        builder.addRow();
+                         for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
+                          builder.addValue(rs.getObject(i+1));
+                        }
+                    }
+                  rs.close();
+                    return builder.build();
+                }
+            } else if (stm.getUpdateCount()>=0){
+                TableModelBuilder builder = new TableModelBuilder();
+                builder.addRow();
+                builder.addValue("Updated");
+                builder.addRow().addValue(stm.getUpdateCount());
+                return builder.build();
+            }
+            return null;
+        } catch (SQLException ex) {
+            throw new IllegalStateException(ex.getMessage());
+        }
     }
 
     @Override
